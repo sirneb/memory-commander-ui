@@ -1,11 +1,18 @@
-import { ProgressStates, SET_PROGRESS_STATE, SET_TIMER_INTERVAL, SET_ELEMENTS_COUNT } from '../actions/index'
+import { combineReducers } from 'redux'
+import {
+  ProgressStates,
+  AsyncStates,
+  SET_PROGRESS_STATE,
+  SET_TIMER_INTERVAL,
+  SET_ELEMENTS_COUNT,
+  REQUEST_TRAINING_SESSION
+} from '../actions/index'
 
 const DEFAULT_TIMER_INTERVAL = 6
 const DEFAULT_ELEMENTS_COUNT = 40
 
-const initialState = {
+const mainInitial = {
   progressState: ProgressStates.NOT_STARTED,
-  elements: [],
   currentElement: null,
   options: {
     timerInterval: DEFAULT_TIMER_INTERVAL,
@@ -13,8 +20,15 @@ const initialState = {
   }
 }
 
+const trainingSessionInitial = {
+  isFetching: false,
+  fetchSuccess: false,
+  elements: [],
+  lastUpdated: null
+}
 
-const memoryApp = function(state = initialState, action) {
+
+const main = function(state = mainInitial, action) {
   switch (action.type) {
     case SET_PROGRESS_STATE:
       return {
@@ -42,4 +56,41 @@ const memoryApp = function(state = initialState, action) {
   }
 }
 
-export default memoryApp
+const trainingSessionRequest = function(state = trainingSessionInitial, action) {
+  switch (action.type) {
+    case REQUEST_TRAINING_SESSION:
+      switch (action.status) {
+        case AsyncStates.REQUESTED:
+        case AsyncStates.IN_PROGRESS:
+          return {
+            ...state,
+            isFetching: true
+          }
+        case AsyncStates.SUCCESS:
+          return {
+            ...state,
+            isFetching: false,
+            fetchSuccess: true,
+            elements: action.responseJson.elements,
+            lastUpdated: action.responseJson.createdAt
+          }
+        case AsyncStates.FAILURE:
+          return {
+            ...state,
+            isFetching: false,
+            fetchSuccess: false
+          }
+        default:
+          return state
+      }
+    default:
+      return state
+  }
+}
+
+const rootReducer = combineReducers({
+  main,
+  trainingSessionRequest
+})
+
+export default rootReducer

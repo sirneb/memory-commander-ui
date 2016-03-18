@@ -1,10 +1,10 @@
 import React from 'react'
 
-let StartTrainingButton = ({ buttonSubmit }) => {
+let StartTrainingButton = ({ count, buttonSubmit }) => {
   return (
     <form onSubmit={e => {
       e.preventDefault();
-      buttonSubmit();
+      buttonSubmit(count);
     }}>
       <button type="submit">
         Start Training

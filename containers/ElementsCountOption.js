@@ -4,7 +4,7 @@ import { setElementsCount } from '../actions/index'
 
 const getCountOption = (state) => {
   return {
-    elementsCount: state.options.elementsCount
+    elementsCount: state.main.options.elementsCount
   }
 }
 let ElementsCountOption = ({ dispatch, elementsCount }) => {

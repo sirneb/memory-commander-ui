@@ -4,7 +4,7 @@ import { setTimerInterval } from '../actions/index'
 
 const getIntervalOption = (state) => {
   return {
-    timerInterval: state.options.timerInterval
+    timerInterval: state.main.options.timerInterval
   }
 }
 let IntervalOption = ({ dispatch, timerInterval }) => {
