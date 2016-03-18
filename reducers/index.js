@@ -1,12 +1,15 @@
 import { ProgressStates, SET_PROGRESS_STATE, SET_TIMER_INTERVAL, SET_ELEMENTS_COUNT } from '../actions/index'
 
+const DEFAULT_TIMER_INTERVAL = 6
+const DEFAULT_ELEMENTS_COUNT = 40
+
 const initialState = {
   progressState: ProgressStates.NOT_STARTED,
   elements: [],
   currentElement: null,
   options: {
-    timerInterval: 6,
-    elementsCount: 40
+    timerInterval: DEFAULT_TIMER_INTERVAL,
+    elementsCount: DEFAULT_ELEMENTS_COUNT
   }
 }
 
