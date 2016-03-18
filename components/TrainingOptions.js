@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import IntervalOption from './IntervalOption'
-import ElementsCountOption from './ElementsCountOption'
+import IntervalOption from '../containers/IntervalOption'
+import ElementsCountOption from '../containers/ElementsCountOption'
 
 let TrainingOptions = () => {
   return (
@@ -13,4 +13,4 @@ let TrainingOptions = () => {
   )
 }
 
-export default connect()(TrainingOptions)
+export default TrainingOptions
