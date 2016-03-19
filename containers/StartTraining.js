@@ -5,15 +5,15 @@ import StartTrainingButton from '../components/StartTrainingButton'
 
 const mapStateToProps = (state) => {
   return {
-    count: state.main.options.elementsCount
+    count: state.main.options.elementsCount,
+    timerInterval: state.main.options.timerInterval
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    buttonSubmit: (count) => {
-      dispatch(setProgressState(ProgressStates.IN_PROGRESS))
-      dispatch(fetchTrainingSession(count))
+    buttonSubmit: (count, timerInterval) => {
+      dispatch(fetchTrainingSession(count, timerInterval))
     }
   }
 }

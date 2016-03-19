@@ -3,6 +3,7 @@ import {
   ProgressStates,
   AsyncStates,
   SET_PROGRESS_STATE,
+  SET_ELEMENT_INDEX,
   SET_TIMER_INTERVAL,
   SET_ELEMENTS_COUNT,
   REQUEST_TRAINING_SESSION
@@ -13,7 +14,7 @@ const DEFAULT_ELEMENTS_COUNT = 40
 
 const mainInitial = {
   progressState: ProgressStates.NOT_STARTED,
-  currentElement: null,
+  currentElementIndex: null,
   options: {
     timerInterval: DEFAULT_TIMER_INTERVAL,
     elementsCount: DEFAULT_ELEMENTS_COUNT
@@ -34,6 +35,11 @@ const main = function(state = mainInitial, action) {
       return {
         ...state,
         progressState: action.progressState
+      }
+    case SET_ELEMENT_INDEX:
+      return {
+        ...state,
+        currentElementIndex: action.index
       }
     case SET_TIMER_INTERVAL:
       return {

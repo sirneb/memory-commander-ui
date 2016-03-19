@@ -1,11 +1,13 @@
 import React from 'react'
 import StartTraining from '../containers/StartTraining'
 import TrainingOptions from '../components/TrainingOptions'
+import TrainingArena from '../containers/TrainingArena'
 
 const App = () => (
   <div>
-    <StartTraining />
     <TrainingOptions />
+    <StartTraining />
+    <TrainingArena />
   </div>
 )
 

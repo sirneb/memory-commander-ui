@@ -8,6 +8,11 @@ import createLogger from 'redux-logger'
 import memoryApp from './reducers/index'
 import App from './components/App'
 
+require('!style!css!sass!./styles/style.sass')
+require('expose?$!expose?jQuery!jquery');
+require("bootstrap-webpack");
+require('spin');
+
 const loggerMiddleware = createLogger()
 
 let store = createStore(

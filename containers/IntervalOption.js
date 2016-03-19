@@ -10,8 +10,17 @@ const getIntervalOption = (state) => {
 let IntervalOption = ({ dispatch, timerInterval }) => {
   return (
     <div>
-      <label for="timer-interval">Time interval:</label>
-      <input type="text" name="timer-interval" value={timerInterval} onChange={e => { dispatch(setTimerInterval(e.target.value)) }} />
+      <label for="timer-interval" className="col-sm-2 control-label">Time interval:</label>
+      <div className="col-md-3 col-sm-10">
+        <input
+          className="form-control"
+          type="text"
+          name="timer-interval"
+          value={timerInterval}
+          onChange={e =>
+            { dispatch(setTimerInterval(e.target.value)) }
+          } />
+      </div>
     </div>
   )
 }
