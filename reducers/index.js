@@ -3,6 +3,8 @@ import {
   ProgressStates,
   AsyncStates,
   SET_PROGRESS_STATE,
+  SET_INITIAL_VALIDATE_LIST,
+  SET_VALIDATE_LIST_ITEM,
   SET_ELEMENT_INDEX,
   SET_TIMER_INTERVAL,
   SET_ELEMENTS_COUNT,
@@ -15,6 +17,7 @@ const DEFAULT_ELEMENTS_COUNT = 40
 const mainInitial = {
   progressState: ProgressStates.NOT_STARTED,
   currentElementIndex: null,
+  validateList: [],
   options: {
     timerInterval: DEFAULT_TIMER_INTERVAL,
     elementsCount: DEFAULT_ELEMENTS_COUNT
@@ -35,6 +38,20 @@ const main = function(state = mainInitial, action) {
       return {
         ...state,
         progressState: action.progressState
+      }
+    case SET_INITIAL_VALIDATE_LIST:
+      return {
+        ...state,
+        validateList: action.list
+      }
+    case SET_VALIDATE_LIST_ITEM:
+      return {
+        ...state,
+        validateList: [
+          ...state.validateList.slice(0, action.index),
+          action.value,
+          ...state.validateList.slice(action.index + 1)
+        ]
       }
     case SET_ELEMENT_INDEX:
       return {

@@ -9,8 +9,8 @@ let TrainingOptions = () => {
       <div className="container-fluid">
         <div className="row">
           <h3><span className="glyphicon glyphicon-cog"></span> Options</h3>
-          <form class="form-horizontal">
-            <div class="form-group">
+          <form className="form-horizontal">
+            <div className="form-group">
               <IntervalOption />
               <ElementsCountOption />
             </div>

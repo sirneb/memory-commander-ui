@@ -4,6 +4,8 @@ import _ from 'lodash'
 import { BACKEND_DOMAIN } from '../initializers/environment'
 
 export const SET_PROGRESS_STATE = 'SET_PROGRESS_STATE'
+export const SET_INITIAL_VALIDATE_LIST = 'SET_INITIAL_VALIDATE_LIST'
+export const SET_VALIDATE_LIST_ITEM = 'SET_VALIDATE_LIST_ITEM'
 export const SET_ELEMENT_INDEX = 'SET_ELEMENT_INDEX'
 export const SET_TIMER_INTERVAL = 'SET_TIMER_INTERVAL'
 export const SET_ELEMENTS_COUNT = 'SET_ELEMENTS_COUNT'
@@ -11,7 +13,9 @@ export const REQUEST_TRAINING_SESSION = 'REQUEST_TRAINING_SESSION'
 
 export const ProgressStates = {
   NOT_STARTED: 'NOT_STARTED',
-  IN_PROGRESS: 'IN_PROGRESS'
+  IN_PROGRESS: 'IN_PROGRESS',
+  IN_VALIDATION: 'IN_VALIDATION',
+  RESULTS: 'RESULTS'
 }
 
 export const AsyncStates = {
@@ -67,8 +71,10 @@ export const startTrainingSession = (count, timerInterval) => {
         index++;
       } else {
         clearInterval(intervalId);
+        let newList = Array.apply(null, Array(count));
         dispatch(setElementIndex(null));
-        dispatch(setProgressState(ProgressStates.NOT_STARTED))
+        dispatch(setInitialValidateList(newList));
+        dispatch(setProgressState(ProgressStates.IN_VALIDATION));
       }
     }, timerInterval * 1000)
   }
@@ -85,6 +91,21 @@ export const receiveSession = (json) => {
 export const setElementIndex = (index) => {
   return {
     type: SET_ELEMENT_INDEX,
+    index
+  }
+}
+
+export const setInitialValidateList = (list) => {
+  return {
+    type: SET_INITIAL_VALIDATE_LIST,
+    list
+  }
+}
+
+export const setValidateListItem = (value, index) => {
+  return {
+    type: SET_VALIDATE_LIST_ITEM,
+    value,
     index
   }
 }

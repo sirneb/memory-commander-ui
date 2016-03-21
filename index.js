@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import memoryApp from './reducers/index'
-import App from './components/App'
+import reducers from './reducers/index'
+import MemoryApp from './containers/MemoryApp'
 
 require('!style!css!sass!./styles/style.sass')
 require('expose?$!expose?jQuery!jquery');
@@ -16,7 +16,7 @@ require('spin');
 const loggerMiddleware = createLogger()
 
 let store = createStore(
-  memoryApp,
+  reducers,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
@@ -25,7 +25,7 @@ let store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+    <MemoryApp />
   </Provider>,
   document.getElementById('root')
 )
