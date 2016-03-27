@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducers from './reducers/index'
@@ -15,12 +15,17 @@ require('spin');
 
 const loggerMiddleware = createLogger()
 
-let store = createStore(
-  reducers,
+const enhancer = compose(
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
-  )
+  ),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+)
+
+let store = createStore(
+  reducers,
+  enhancer
 )
 
 render(
