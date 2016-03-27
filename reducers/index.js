@@ -5,6 +5,7 @@ import {
   SET_PROGRESS_STATE,
   SET_INITIAL_VALIDATE_LIST,
   SET_VALIDATE_LIST_ITEM,
+  SET_ELEMENT_LIST,
   SET_ELEMENT_INDEX,
   SET_TIMER_INTERVAL,
   SET_ELEMENTS_COUNT,
@@ -17,6 +18,7 @@ const DEFAULT_ELEMENTS_COUNT = 40
 const mainInitial = {
   progressState: ProgressStates.NOT_STARTED,
   currentElementIndex: null,
+  elements: [],
   validateList: [],
   options: {
     timerInterval: DEFAULT_TIMER_INTERVAL,
@@ -27,7 +29,6 @@ const mainInitial = {
 const trainingSessionInitial = {
   isFetching: false,
   fetchSuccess: false,
-  elements: [],
   lastUpdated: null
 }
 
@@ -40,9 +41,11 @@ const main = function(state = mainInitial, action) {
         progressState: action.progressState
       }
     case SET_INITIAL_VALIDATE_LIST:
+      let count = state.elements.length;
+      let newList = Array.apply(null, Array(count));
       return {
         ...state,
-        validateList: action.list
+        validateList: newList
       }
     case SET_VALIDATE_LIST_ITEM:
       return {
@@ -52,6 +55,11 @@ const main = function(state = mainInitial, action) {
           action.value,
           ...state.validateList.slice(action.index + 1)
         ]
+      }
+    case SET_ELEMENT_LIST:
+      return {
+        ...state,
+        elements: action.list
       }
     case SET_ELEMENT_INDEX:
       return {
@@ -94,7 +102,6 @@ const trainingSessionRequest = function(state = trainingSessionInitial, action) 
             ...state,
             isFetching: false,
             fetchSuccess: true,
-            elements: action.responseJson.elements,
             lastUpdated: action.responseJson.createdAt
           }
         case AsyncStates.FAILURE:

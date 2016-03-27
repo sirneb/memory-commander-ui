@@ -30,7 +30,7 @@ const getElement = (state) => {
   return {
     isFetching: state.trainingSessionRequest.isFetching,
     fetchSuccess: state.trainingSessionRequest.fetchSuccess,
-    currentElement: state.trainingSessionRequest.elements[index]
+    currentElement: state.main.elements[index]
   }
 }
 

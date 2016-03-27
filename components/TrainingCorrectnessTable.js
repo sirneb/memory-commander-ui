@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { setValidateListItem } from '../actions/index'
-import TrainingValidateInput from '../containers/TrainingValidateInput'
 import _ from 'lodash'
 
 const CORRECT_ICON = 'glyphicon glyphicon-ok'
 const WRONG_ICON = 'glyphicon glyphicon-remove'
 
-let TrainingCorrectnessTable = ({ inputList, correctList, startOverButton }) => {
+let TrainingCorrectnessTable = ({ inputList, correctList, startOverButton, tryAgainButton }) => {
   let totalCorrect = _.reduce(inputList, (memo, item, index) => {
     if (item == correctList[index]) {
       memo += 1;
@@ -58,12 +57,20 @@ let TrainingCorrectnessTable = ({ inputList, correctList, startOverButton }) => 
         </tbody>
       </table>
       <button type="button"
-        className="btn-default btn-lg btn-block"
+        className="btn-primary btn-lg btn-block"
         onClick={e => {
           startOverButton();
         }}
         >
         Start Over
+      </button>
+      <button type="button"
+        className="btn-default btn-lg btn-block"
+        onClick={e => {
+          tryAgainButton(inputList);
+        }}
+        >
+        Try Again
       </button>
     </div>
   )
